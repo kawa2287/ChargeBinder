@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="roomColorEmpty">#404040</color>
+    <color name="roomColorFilled">#0066FF</color>
+    <color name="emptyRoomText">#797979</color>
+    <color name="filledRoomText">#E9E9E9</color>
+
+</resources>
