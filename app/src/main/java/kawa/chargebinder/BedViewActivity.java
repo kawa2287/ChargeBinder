@@ -26,6 +26,7 @@ public class BedViewActivity extends AppCompatActivity {
     int bedNumber;
     String lastName;
     String firstName;
+    //Test Commit
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class BedViewActivity extends AppCompatActivity {
         lastName = intent.getStringExtra("LastName");
         firstName = intent.getStringExtra("FirstName");
 
-        BedTitle.setText("Bed Number " + bedNumber);
+        BedTitle.setText(R.string.bedNumber + bedNumber);
         if (!lastName.equals("Empty")) {lastNameInput.setText(lastName);}
         firstNameInput.setText(firstName);
 
@@ -149,7 +150,7 @@ public class BedViewActivity extends AppCompatActivity {
         }
         cursor.close();
 
-        if( exists == false){
+        if( !exists){
             ContentValues values = new ContentValues();
             values.put(MyDatabaseHelper.KEY_LAST_NAME, lastName);
             values.put(MyDatabaseHelper.KEY_FIRST_NAME, firstName);
