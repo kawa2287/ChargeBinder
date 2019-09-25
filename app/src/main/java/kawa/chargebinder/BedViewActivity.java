@@ -8,11 +8,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
+
 
 
 public class BedViewActivity extends AppCompatActivity {
@@ -22,6 +26,10 @@ public class BedViewActivity extends AppCompatActivity {
     TextView BedTitle;
     TextInputEditText firstNameInput;
     TextInputEditText lastNameInput;
+    TextInputEditText ageField;
+    TextInputEditText yearBirthInput;
+    TextInputEditText monthBirthInput;
+    TextInputEditText dayBirthInput;
 
     int bedNumber;
     String lastName;
@@ -38,18 +46,56 @@ public class BedViewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         setContentView(R.layout.activity_bed_view);
 
-
         BedTitle = (TextView) this.findViewById(R.id.tvBedNumber);
         firstNameInput = (TextInputEditText) this.findViewById(R.id.inputFirstName);
         lastNameInput = (TextInputEditText) this.findViewById(R.id.inputLastName);
+        ageField = (TextInputEditText) this.findViewById(R.id.calcAge);
+        yearBirthInput = (TextInputEditText) this.findViewById(R.id.inputBirthYear);
+        monthBirthInput = (TextInputEditText) this.findViewById(R.id.inputBirthMonth);
+        dayBirthInput = (TextInputEditText) this.findViewById(R.id.inputBirthDay);
 
         bedNumber = intent.getIntExtra("BedNumber", 1);
         lastName = intent.getStringExtra("LastName");
         firstName = intent.getStringExtra("FirstName");
 
-        BedTitle.setText(R.string.bedNumber + bedNumber);
+        BedTitle.setText("Bed Number " + bedNumber);
         if (!lastName.equals("Empty")) {lastNameInput.setText(lastName);}
         firstNameInput.setText(firstName);
+
+
+        yearBirthInput.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (!hasFocus)
+                {
+                    TestFields();
+                }
+            }
+        });
+        monthBirthInput.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (!hasFocus)
+                {
+                    TestFields();
+                }
+            }
+        });
+        dayBirthInput.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (!hasFocus)
+                {
+                    TestFields();
+                }
+            }
+        });
 
         RetrieveData();
     }
@@ -75,6 +121,25 @@ public class BedViewActivity extends AppCompatActivity {
             b.setVisibility(View.VISIBLE);
         }
     }
+
+
+    public void TestFields()
+    {
+        if( !TextUtils.isEmpty(yearBirthInput.getText()) && !TextUtils.isEmpty(monthBirthInput.getText()) && !TextUtils.isEmpty(dayBirthInput.getText()))
+        {
+            LocalDate now = new LocalDate();
+            LocalDate age = new LocalDate(Integer.parseInt(yearBirthInput.getText().toString()),Integer.parseInt(monthBirthInput.getText().toString()),Integer.parseInt(dayBirthInput.getText().toString()));
+
+            int daysOld = Days.daysBetween(age, now).getDays();
+            int yearsOld = 0;
+            int monthsOld = 0;
+
+            
+            ageField.setText(String.valueOf(daysOld+" Days Old"));
+        }
+    }
+
+
 
     public RecycleRow RetrieveData(){
         RecycleRow dataPackage = new RecycleRow();
