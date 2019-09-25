@@ -134,7 +134,7 @@ public class BedViewActivity extends AppCompatActivity {
             int yearsOld = 0;
             int monthsOld = 0;
 
-            
+
             ageField.setText(String.valueOf(daysOld+" Days Old"));
         }
     }
